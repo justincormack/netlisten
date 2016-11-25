@@ -112,7 +112,7 @@ int main(int argc, char ** argv) {
 		perror("poll");
 		return 1;
 	}
-	if (p[0].revents) {
+	if (p[0].revents & POLLIN) {
 		in = 0;
 		out = 1;
 	} else {
@@ -175,7 +175,9 @@ int main(int argc, char ** argv) {
 	/* output finished, close */
 	close(outpipe[0]);
 	close(in);
-	close(out);
+	if (in != out) {
+		close(out);
+	}
 	close(s);
 
 	/* wait for child */

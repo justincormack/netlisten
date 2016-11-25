@@ -6,3 +6,5 @@ TAG=justincormack/netlisten
 
 IMAGE=$(tar cf - Dockerfile listen.c | docker build -q -)
 docker run $IMAGE | docker build -q -t $TAG -
+
+docker build -f Dockerfile.alpine -t $TAG:alpine .
